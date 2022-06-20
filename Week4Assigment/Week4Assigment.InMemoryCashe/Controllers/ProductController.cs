@@ -22,18 +22,18 @@ namespace Week4Assigment.InMemoryCashe.Controllers
 
             if (_memoryCache.TryGetValue(key, out object list))
                 return Ok(list);
-            var personelList = _appDbContext.Products.Select(x => new
+            var productList = _appDbContext.Products.Select(x => new
             {
                 x.ProductName,
                 x.Price,
                 x.Stock
             }).ToList();
-            _memoryCache.Set(key, personelList, new MemoryCacheEntryOptions
+            _memoryCache.Set(key, productList, new MemoryCacheEntryOptions
             {
                 AbsoluteExpiration = DateTime.Now.AddMinutes(10),
                 Priority = CacheItemPriority.Normal
             });
-            return Ok(personelList);
+            return Ok(productList);
         }
     }
 }
